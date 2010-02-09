@@ -54,16 +54,32 @@
 		uptimeDisp = now.Subtract(DateTime.Parse(rgx.Match(uptimeResult).ToString().Trim().Substring(16))).ToString();
 
 		PerformanceCounter pc = new PerformanceCounter("Memory", "Available Bytes");
-		memAvailDisp += bytesToHumanReadible(pc.NextValue().ToString());
+		try {
+			memAvailDisp = bytesToHumanReadible(pc.NextValue().ToString());
+		} catch {
+			memAvailDisp = "err";
+		}
 
 		pc = new PerformanceCounter("Paging File", "% Usage", "_Total", ".");
-		pageUseDisp = Math.Round(float.Parse(pc.NextValue().ToString()), 1).ToString() + "%"; 
+		try {
+			pageUseDisp = Math.Round(float.Parse(pc.NextValue().ToString()), 1).ToString() + "%"; 
+		} catch {
+			pageUseDisp = "err";
+		}
 
 		pc = new PerformanceCounter("Process", "Thread Count", "w3wp", ".");
-		iisThreadDisp = pc.NextValue().ToString();
+		try {
+			iisThreadDisp = pc.NextValue().ToString();
+		} catch {
+			iisThreadDisp = "err";
+		}
 
 		pc = new PerformanceCounter("Process", "Thread Count", "sqlservr", ".");
-		sqlThreadDisp = pc.NextValue().ToString();
+		try { // System.InvalidOperationException: Instance 'sqlservr' does not exist in the specified Category.
+			sqlThreadDisp = pc.NextValue().ToString();
+		} catch {
+			sqlThreadDisp = "err";
+		}
 	}
 
 	private static string runProcess(string command) {
