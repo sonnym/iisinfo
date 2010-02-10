@@ -124,6 +124,7 @@
     table.summary { border: solid 1px #999999; table-layout: fixed; border-collapse: collapse; cell-spacing: 0px; }
     table.raw { border-collapse: separate; border-spacing: 3px; }
     table.raw td { border: solid 1px #999999; }
+	table td table td { font-size: 12px; text-align: center; }
     div { padding: 2px; }
     div.title { height: 13px; background: #333333; border-bottom: solid 1px #999999; font-weight: 600; }
     div.pre { margin: 0px; height: 350px; overflow: auto; }
@@ -132,6 +133,7 @@
     h1, h2, h4 { margin: 0px; }
     pre { color: 00ff00; margin: 0px; padding: 2px; }
     .right { text-align: right; }
+	.middle { vertical-align: middle; }
   </style>
   <title>
    <%=hostname %> : IIS Information
@@ -161,7 +163,7 @@
       </div>
      </td>
      <td>&nbsp;</td>
-     <td>
+     <td class="middle">
       <table>
        <tbody>
         <tr>
