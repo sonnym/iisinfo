@@ -1,0 +1,27 @@
+I. SUMMARY
+iisinfo is a simple script which enables users of Windows servers and IIS to monitor the status of their system remotely with but a single, tiny script.  Not intended to be comprehensive in depth, the script allows the user to have immediate access to the a number of the most vital metrics used in determining the state of a server.
+
+iisinfo is designed to emulate vpsinfo ( http://www.labradordata.ca/home/13 ), which puts at the fingertips of the user an abundance of information much more quickly than could be obtained by traditional means (ssh and manual probing). 
+
+The need for such a program for Windows servers was highlighted by the fact that most of the information provided is spread out in different applications or simply not easily found.  The ultimate goal is to make a script which can serve as the first line of diagnosis in the case of emergency.
+
+II. FEATURES
+iisinfo is best demonstrated through its screenshots, but the basic features are as follows:
+ - Ability to monitor paricular items which are running and to display error messages when they fail
+ - Display of disk usage statistics
+ - Current uptime
+ - Display of free RAM, page file usage, IIS thread, and SQL threads
+ - Output of the commands:
+   - tasklist
+   - dir /B %tmp%
+   - netstat -n
+
+Additional features are forthcoming but only on a by need basis; they include:
+ - Ability to restart stopped services with a single click
+ - Display of most recent log entries
+
+III. NOTE ON SECURITY
+iisinfo includes no security whatsoever - it is a standalone script. The user is responsible for placing it within their existing security framework or using it on an insecure system.
+
+V. FEEDBACK
+Please submit any feedback to the project creater michaud dot sonny at gmail dot com - it is much appreciated.
