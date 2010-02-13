@@ -8,6 +8,8 @@
 	// Settings
 	private string refresh = "300";
 	private string[] monitor = { "w3wp.exe", "aspnet_state.exe", "sqlservr.exe" };
+	private string logname = "Application";
+	private byte logcount = 5;
 	//////////
 
 	private string hostname = runProcess("hostname");
@@ -31,6 +33,7 @@
 	private string pageUseDisp = String.Empty;
 	private string iisThreadDisp = String.Empty;
 	private string sqlThreadDisp = String.Empty;
+	private string logDisp = String.Empty;
 
 	private void Page_Load(object sender, EventArgs e) {
 		Regex rgx;
@@ -80,6 +83,10 @@
 		} catch {
 			sqlThreadDisp = "err";
 		}
+
+		EventLog el = new EventLog(logname);
+		EventLogEntryCollection elec = el.Entries;
+		for (int i = 1, len = elec.Count; i <= logcount; i++) logDisp += "<b>" + elec[len - i].TimeWritten + "</b><br />" + elec[len - i].Message + "<hr />";
 	}
 
 	private static string runProcess(string command) {
@@ -119,11 +126,11 @@
   <meta http-equiv="refresh" content="<%=refresh%>" />
   <style type="text/css">
     body { background: #000000; color: #eeeeee; margin: 0px; padding: 2px; font-size: 0.85em; }
-    table { width: 100%; font-size: 11px; }
+    table { width: 100%; font-size: 11px; table-layout: fixed; }
     table td { padding: 0px; vertical-align: top; }
-    table.summary { border: solid 1px #999999; table-layout: fixed; border-collapse: collapse; cell-spacing: 0px; }
+    table.summary { border: solid 1px #999999; border-collapse: collapse; }
     table.raw { border-collapse: separate; border-spacing: 3px; }
-    table.raw td { border: solid 1px #999999; }
+    table.raw td { border: solid 1px #999999; width: 50%; }
 	table td table td { font-size: 12px; text-align: center; }
     div { padding: 2px; }
     div.title { height: 13px; background: #333333; border-bottom: solid 1px #999999; font-weight: 600; }
@@ -132,6 +139,7 @@
     span.down { color: #ff0000; }
     h1, h2, h4 { margin: 0px; }
     pre { color: 00ff00; margin: 0px; padding: 2px; }
+	hr { margin: 5px auto; width: 60%; background-color: white; }
     .right { text-align: right; }
 	.middle { vertical-align: middle; }
   </style>
@@ -204,9 +212,9 @@
        <pre><%=runProcess(ps)%></pre>
       </div>
      </td>
-     <td rowspan="2">
+     <td rowspan="3">
       <div class="title"><%=commandString + commandAttributes + tmpfiles%></div>
-      <div class="pre" style="height: 727px">
+      <div class="pre" style="height: 1104px">
        <pre><%=runProcess(tmpfiles)%></pre>
       </div>
      </td>
@@ -216,6 +224,14 @@
       <div class="title"><%=commandString + commandAttributes + netstat%></div>
       <div class="pre">
        <pre><%=runProcess(netstat)%></pre>
+      </div>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <div class="title"><%=Convert.ToString(logcount) + " most recent log entries for " + logname%></div>
+      <div class="pre">
+       <pre><%=logDisp%></pre>
       </div>
      </td>
     </tr>
