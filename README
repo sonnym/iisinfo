@@ -16,12 +16,12 @@ iisinfo is best demonstrated through its screenshots, but the basic features are
    - dir /B %tmp%
    - netstat -n
 
-Additional features are forthcoming but only on a by need basis; they include:
- - Ability to restart stopped services with a single click
- - Display of most recent log entries
+The next upcoming feature will, most likely be te ability to restart stopped services with a single click.
 
 III. NOTE ON SECURITY
 iisinfo includes no security whatsoever - it is a standalone script. The user is responsible for placing it within their existing security framework or using it on an insecure system.
+
+Some features most likely require administrative privileges and have not been tested without them. As such, one should take especial care when deploying this script.
 
 V. FEEDBACK
 Please submit any feedback to the project creater michaud dot sonny at gmail dot com - it is much appreciated.
