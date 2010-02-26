@@ -47,7 +47,8 @@
 		DriveInfo[] drives = DriveInfo.GetDrives();
 		foreach (DriveInfo d in drives) {
 			try {
-				driveDisp += "<span>" + d.Name + " (" + Convert.ToString(Math.Floor((float)(d.TotalSize - d.AvailableFreeSpace) / d.TotalSize * 100))  + "%)</span>";
+				driveDisp += ((String.IsNullOrEmpty(driveDisp)) ? "" : ", ") + "<span>" + d.Name + 
+								" (" + Convert.ToString(Math.Floor((float)(d.TotalSize - d.AvailableFreeSpace) / d.TotalSize * 100))  + "%)</span>";
 			} catch {}
 		}
 
@@ -131,17 +132,17 @@
     table.summary { border: solid 1px #999999; border-collapse: collapse; }
     table.raw { border-collapse: separate; border-spacing: 3px; }
     table.raw td { border: solid 1px #999999; width: 50%; }
-	table td table td { font-size: 12px; text-align: center; }
     div { padding: 2px; }
     div.title { height: 13px; background: #333333; border-bottom: solid 1px #999999; font-weight: 600; }
+    div.major { float: left; margin-right: 7px; text-align: center; }
     div.pre { margin: 0px; height: 350px; overflow: auto; }
     span { margin: 0px 2px; font-weight: normal; }
     span.down { color: #ff0000; }
     h1, h2, h4 { margin: 0px; }
     pre { color: 00ff00; margin: 0px; padding: 2px; }
-	hr { margin: 5px auto; width: 60%; background-color: white; }
+    hr { margin: 5px auto; width: 60%; background-color: white; }
     .right { text-align: right; }
-	.middle { vertical-align: middle; }
+    .middle { vertical-align: middle; }
   </style>
   <title>
    <%=hostname %> : IIS Information
@@ -171,35 +172,28 @@
       </div>
      </td>
      <td>&nbsp;</td>
-     <td class="middle">
-      <table>
-       <tbody>
-        <tr>
-         <td>
-          Free RAM
-          <br />
-          <h2><%=memAvailDisp%></h2>
-         </td>
-         <td>
-          Page File Use
-          <br />
-          <h2><%=pageUseDisp%></h2>
-         </td>
-         <td>
-          IIS Threads
-          <br />
-          <h2><%=iisThreadDisp%></h2>
-         </td>
-         <td>
-          SQL Threads
-          <br />
-          <h2><%=sqlThreadDisp%></h2>
-         </td>
-        </tr>
-       </tbody>
-      </table>
+     <td class="middle" colspan="2">
+      <div class="major">
+       Free RAM
+       <br />
+       <h2><%=memAvailDisp%></h2>
+      </div>
+      <div class="major">
+       Page File Use
+       <br />
+       <h2><%=pageUseDisp%></h2>
+      </div>
+      <div class="major">
+       IIS Threads
+       <br />
+       <h2><%=iisThreadDisp%></h2>
+      </div>
+      <div class="major">
+       SQL Threads
+       <br />
+       <h2><%=sqlThreadDisp%></h2>
+      </div>
      </td>
-     <td>&nbsp;</td>
     </tr>
    </tbody>
   </table>
